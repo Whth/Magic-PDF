@@ -11,7 +11,7 @@ def parse_requirements(filename):
 
     for line in lines:
         if "http" in line:
-            pkg_name_without_url = line.split('@')[0].strip()
+            pkg_name_without_url = line.split("@")[0].strip()
             requires.append(pkg_name_without_url)
         else:
             requires.append(line)
@@ -19,9 +19,8 @@ def parse_requirements(filename):
     return requires
 
 
-if __name__ == '__main__':
-    with Path(Path(__file__).parent,
-              'README.md').open(encoding='utf-8') as file:
+if __name__ == "__main__":
+    with Path(Path(__file__).parent, "README.md").open(encoding="utf-8") as file:
         long_description = file.read()
     setup(
         name="magic_pdf",  # 项目名
@@ -30,35 +29,37 @@ if __name__ == '__main__':
         package_data={
             "magic_pdf.resources": ["**"],  # 包含magic_pdf.resources目录下的所有文件
         },
-        install_requires=parse_requirements('requirements.txt'),  # 项目依赖的第三方库
+        install_requires=parse_requirements("requirements.txt"),  # 项目依赖的第三方库
         extras_require={
-            "lite": ["paddleocr==2.7.3",
-                     "paddlepaddle==3.0.0b1;platform_system=='Linux'",
-                     "paddlepaddle==2.6.1;platform_system=='Windows' or platform_system=='Darwin'",
-                     ],
-            "full": ["unimernet==0.2.3",  # unimernet升级0.2.3,移除torchtext/eva-decord的依赖
-                     "torch>=2.2.2,<=2.3.1",  # torch2.4.0及之后版本未测试，先卡住版本上限
-                     "torchvision>=0.17.2,<=0.18.1",  # torchvision 受torch版本约束
-                     "matplotlib<=3.9.0;platform_system=='Windows'",  # 3.9.1及之后不提供windows的预编译包，避免一些没有编译环境的windows设备安装失败
-                     "matplotlib;platform_system=='Linux' or platform_system=='Darwin'",  # linux 和 macos 不应限制matplotlib的最高版本，以避免无法更新导致的一些bug
-                     "ultralytics>=8.3.48",  # yolov8,公式检测
-                     "paddleocr==2.7.3",  # 2.8.0及2.8.1版本与detectron2有冲突，需锁定2.7.3
-                     "paddlepaddle==3.0.0b1;platform_system=='Linux'",  # 解决linux的段异常问题
-                     "paddlepaddle==2.6.1;platform_system=='Windows' or platform_system=='Darwin'",  # windows版本3.0.0b1效率下降，需锁定2.6.1
-                     "struct-eqtable==0.3.2",  # 表格解析
-                     "einops",  # struct-eqtable依赖
-                     "accelerate",  # struct-eqtable依赖
-                     "doclayout_yolo==0.0.2b1",  # doclayout_yolo
-                     "rapidocr-paddle",  # rapidocr-paddle
-                     "rapidocr_onnxruntime",
-                     "rapid_table>=1.0.3,<2.0.0",  # rapid_table
-                     "PyYAML",  # yaml
-                     "openai",  # openai SDK
-                     "detectron2"
-                     ],
-            "old_linux":[
-                "albumentations<=1.4.20", # 1.4.21引入的simsimd不支持2019年及更早的linux系统
-            ]
+            "lite": [
+                "paddleocr==2.7.3",
+                "paddlepaddle==3.0.0b1;platform_system=='Linux'",
+                "paddlepaddle==2.6.1;platform_system=='Windows' or platform_system=='Darwin'",
+            ],
+            "full": [
+                "unimernet==0.2.3",  # unimernet升级0.2.3,移除torchtext/eva-decord的依赖
+                "torch>=2.2.2",  # torch2.4.0及之后版本未测试，先卡住版本上限
+                "torchvision>=0.17.2",  # torchvision 受torch版本约束
+                "matplotlib<=3.9.0;platform_system=='Windows'",  # 3.9.1及之后不提供windows的预编译包，避免一些没有编译环境的windows设备安装失败
+                "matplotlib;platform_system=='Linux' or platform_system=='Darwin'",  # linux 和 macos 不应限制matplotlib的最高版本，以避免无法更新导致的一些bug
+                "ultralytics>=8.3.48",  # yolov8,公式检测
+                "paddleocr==2.7.3",  # 2.8.0及2.8.1版本与detectron2有冲突，需锁定2.7.3
+                "paddlepaddle==3.0.0b1;platform_system=='Linux'",  # 解决linux的段异常问题
+                "paddlepaddle==2.6.1;platform_system=='Windows' or platform_system=='Darwin'",  # windows版本3.0.0b1效率下降，需锁定2.6.1
+                "struct-eqtable==0.3.2",  # 表格解析
+                "einops",  # struct-eqtable依赖
+                "accelerate",  # struct-eqtable依赖
+                "doclayout_yolo==0.0.2b1",  # doclayout_yolo
+                "rapidocr-paddle",  # rapidocr-paddle
+                "rapidocr_onnxruntime",
+                "rapid_table>=1.0.3,<2.0.0",  # rapid_table
+                "PyYAML",  # yaml
+                "openai",  # openai SDK
+                "detectron2",
+            ],
+            "old_linux": [
+                "albumentations<=1.4.20",  # 1.4.21引入的simsimd不支持2019年及更早的linux系统
+            ],
         },
         description="A practical tool for converting PDF to Markdown",  # 简短描述
         long_description=long_description,  # 详细描述
@@ -68,7 +69,7 @@ if __name__ == '__main__':
         entry_points={
             "console_scripts": [
                 "magic-pdf = magic_pdf.tools.cli:cli",
-                "magic-pdf-dev = magic_pdf.tools.cli_dev:cli" 
+                "magic-pdf-dev = magic_pdf.tools.cli_dev:cli",
             ],
         },  # 项目提供的可执行命令
         include_package_data=True,  # 是否包含非代码文件，如数据文件、配置文件等
